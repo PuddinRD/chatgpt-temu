@@ -1,0 +1,591 @@
+/* style.css */
+
+/* ==========================================
+   1. Variables CSS (Custom Properties)
+   ========================================== */
+/* Define colores, fuentes, tamaños y espaciados base para la aplicación.
+   Facilita la gestión de temas (claro/oscuro) y la consistencia del diseño. */
+   :root {
+    /* --- Paleta de Colores - Tema Claro (Predeterminado) --- */
+    --primary-color: #3498db;          /* Azul principal (ej. Botón Enviar) */
+    --primary-color-darker: #2980b9;   /* Azul más oscuro para :hover */
+    --danger-color: #e74c3c;           /* Rojo (ej. Botón Limpiar, Errores) */
+    --danger-color-darker: #c0392b;    /* Rojo más oscuro para :hover */
+    --info-color: #0dcaf0;             /* Azul claro (ej. Botón Copiar) */
+    --info-color-darker: #0aa3c2;      /* Azul claro más oscuro para :hover */
+    --success-color: #198754;          /* Verde (ej. Botón Guardar) */
+    --success-color-darker: #157347;   /* Verde más oscuro para :hover */
+    --secondary-color: #6c757d;        /* Gris secundario (ej. Botones de acción deshabilitados) */
+    --disabled-color: #bdc3c7;         /* Gris claro (ej. Botones principales deshabilitados) */
+    --disabled-opacity: 0.65;          /* Opacidad para elementos deshabilitados */
+  
+    /* --- Colores de Texto - Tema Claro --- */
+    --text-color-dark: #2c3e50;         /* Texto oscuro (ej. Títulos) */
+    --text-color-medium: #34495e;       /* Texto medio (ej. Subtítulos) */
+    --text-color-normal: #333;          /* Texto principal */
+    --text-color-light: #ccc;           /* Texto claro (útil sobre fondos oscuros, ej. código en tema oscuro) */
+    --text-color-white: #fff;           /* Texto blanco (ej. en botones con fondo de color) */
+    --text-color-error: var(--danger-color); /* Color para mensajes de error */
+    --text-color-placeholder: #888;     /* Color para texto placeholder en inputs */
+  
+    /* --- Colores de Fondo - Tema Claro --- */
+    --background-color-body: #f4f7f6;       /* Fondo general de la página */
+    --background-color-container: #ffffff;  /* Fondo del contenedor principal */
+    --background-color-input: #ffffff;      /* Fondo del área de texto */
+    --background-color-result: #f9f9f9;     /* Fondo de la caja de resultados */
+    --background-color-code: #f5f2f0;       /* Fondo para bloques de código (Prism) */
+    --background-color-overlay: rgba(255, 255, 255, 0.7); /* Fondo semitransparente para el overlay de carga */
+    --background-color-button-toggle: #eee; /* Fondo del botón de cambio de tema */
+    --background-color-button-toggle-hover: #ddd; /* Fondo del botón de tema en :hover */
+  
+    /* --- Bordes y Sombras - Tema Claro --- */
+    --border-color-light: #e0e0e0;       /* Borde claro (ej. caja resultado) */
+    --border-color-medium: #dcdcdc;      /* Borde medio (ej. textarea) */
+    --border-color-focus: var(--primary-color); /* Color de borde al enfocar elementos */
+    --border-radius-standard: 4px;        /* Radio de borde estándar */
+    --border-radius-large: 8px;           /* Radio de borde más grande */
+    --shadow-color: rgba(0, 0, 0, 0.1);   /* Color base para sombras */
+    --shadow-container: 0 4px 8px var(--shadow-color); /* Sombra para el contenedor */
+    --shadow-button-hover: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para botones en :hover */
+  
+    /* --- Tipografía y Espaciado --- */
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Fuente principal sans-serif (stack del sistema) */
+    --font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; /* Fuente monoespaciada (para código/resultados) */
+    --base-font-size: 17px;               /* Tamaño de fuente base global */
+    --line-height-normal: 1.6;            /* Altura de línea estándar */
+    --spacing-unit: 8px;                  /* Unidad base para márgenes y paddings (usar con calc) */
+  
+    /* --- Dimensiones de Botones --- */
+    --button-padding-y: 10px;             /* Padding vertical botones principales */
+    --button-padding-x: 20px;             /* Padding horizontal botones principales */
+    --button-action-padding-y: 5px;       /* Padding vertical botones de acción (copiar/guardar) */
+    --button-action-padding-x: 10px;      /* Padding horizontal botones de acción */
+  
+    /* --- Transiciones --- */
+    --transition-speed: 0.2s;             /* Velocidad estándar para animaciones CSS */
+  }
+  
+  /* --- Tema Oscuro --- */
+  /* Sobrescribe las variables de :root cuando el atributo data-theme="dark" está presente en <html> */
+  [data-theme="dark"] {
+    /* Sobrescritura de Paleta de Colores */
+    --primary-color: #5dade2;
+    --primary-color-darker: #85c1e9;
+    --danger-color: #f1948a;
+    --danger-color-darker: #e6b0aa;
+    --info-color: #76d7c4;
+    --info-color-darker: #a3e4d7;
+    --success-color: #7dcea0;
+    --success-color-darker: #a9dfbf;
+    --secondary-color: #99a3a4;
+    --disabled-color: #7f8c8d;
+  
+    /* Sobrescritura de Colores de Texto */
+    --text-color-dark: #ecf0f1;
+    --text-color-medium: #bdc3c7;
+    --text-color-normal: #e0e0e0;
+    --text-color-light: #95a5a6; /* Usado en tema claro para código, aquí podría ser menos relevante */
+    --text-color-white: #1c1c1c; /* Texto oscuro sobre botones claros en tema oscuro */
+    --text-color-error: var(--danger-color);
+    --text-color-placeholder: #777;
+  
+    /* Sobrescritura de Colores de Fondo */
+    --background-color-body: #02132b;
+    --background-color-container: #031c3f;
+    --background-color-input: #465a70;
+    --background-color-result: #405164;
+    --background-color-code: #2d2d2d; /* Fondo oscuro para bloques de código */
+    --background-color-overlay: rgba(0, 0, 0, 0.6); /* Overlay de carga oscuro */
+    --background-color-button-toggle: #444;
+    --background-color-button-toggle-hover: #555;
+  
+    /* Sobrescritura de Bordes y Sombras */
+    --border-color-light: #4a637d;
+    --border-color-medium: #56708a;
+    --border-color-focus: var(--primary-color);
+    --shadow-color: rgba(0, 0, 0, 0.3); /* Sombra más pronunciada en tema oscuro */
+    --shadow-container: 0 4px 12px var(--shadow-color);
+  }
+  
+  /* ==========================================
+     2. Reset Básico y Estilos Globales
+     ========================================== */
+  html {
+    box-sizing: border-box; /* Modelo de caja más intuitivo */
+    scroll-behavior: smooth; /* Desplazamiento suave para anclas */
+  }
+  
+  *, *::before, *::after {
+    box-sizing: inherit; /* Hereda box-sizing de html */
+    margin: 0;           /* Elimina márgenes por defecto */
+    padding: 0;          /* Elimina paddings por defecto */
+  }
+  
+  body {
+    font-family: var(--font-family-sans);   /* Fuente base */
+    font-size: var(--base-font-size);       /* Tamaño de fuente base */
+    line-height: var(--line-height-normal); /* Altura de línea base */
+    background-color: var(--background-color-body); /* Color de fondo (depende del tema) */
+    color: var(--text-color-normal);        /* Color de texto (depende del tema) */
+    padding: calc(var(--spacing-unit) * 2.5); /* Padding alrededor del contenido */
+    /* Transiciones suaves para cambios de tema */
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  }
+  
+  /* ==========================================
+     3. Contenedor Principal y Título
+     ========================================== */
+  .container {
+    max-width: 1200px;  /* Ancho máximo del contenido */
+    margin: calc(var(--spacing-unit) * 2.5) auto; /* Centrado horizontal con margen superior/inferior */
+    padding: calc(var(--spacing-unit) * 3);      /* Espaciado interno */
+    background-color: var(--background-color-container); /* Fondo (depende del tema) */
+    border-radius: var(--border-radius-large);        /* Bordes redondeados */
+    box-shadow: var(--shadow-container);              /* Sombra (depende del tema) */
+    display: flex;            /* Habilita Flexbox */
+    flex-direction: column;   /* Organiza los hijos en columna */
+    /* Transiciones suaves para cambios de tema */
+    transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  }
+  
+  h1 {
+    text-align: center;                       /* Título centrado */
+    color: var(--text-color-dark);            /* Color (depende del tema) */
+    margin-bottom: calc(var(--spacing-unit) * 4); /* Espacio debajo del título */
+    font-weight: 600;                         /* Peso de fuente semi-bold */
+    transition: color var(--transition-speed) ease; /* Transición suave de color */
+  }
+  
+  /* ==========================================
+     4. Sección del Prompt (Entrada de Usuario)
+     ========================================== */
+  .prompt-section {
+    margin-bottom: calc(var(--spacing-unit) * 3); /* Espacio debajo de esta sección */
+  }
+  
+  .prompt-area {
+    width: 100%;                        /* Ocupa todo el ancho disponible */
+    min-height: 100px;                  /* Altura mínima */
+    padding: calc(var(--spacing-unit) * 1.5); /* Espaciado interno */
+    border: 1px solid var(--border-color-medium); /* Borde (depende del tema) */
+    border-radius: var(--border-radius-standard); /* Bordes redondeados */
+    font-family: inherit; /* Hereda la fuente sans-serif del body */
+    font-size: 20px;      /* Tamaño de fuente específico para la entrada */
+    text-align: justify;  /* Texto justificado */
+    resize: vertical;     /* Permite redimensionar verticalmente */
+    margin-bottom: calc(var(--spacing-unit) * 1.5); /* Espacio debajo del textarea */
+    background-color: var(--background-color-input); /* Fondo (depende del tema) */
+    color: var(--text-color-normal);            /* Color de texto (depende del tema) */
+    /* Transiciones suaves */
+    transition: background-color var(--transition-speed) ease,
+                color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+  }
+  
+  .prompt-area::placeholder {
+    color: var(--text-color-placeholder); /* Color del texto placeholder */
+    opacity: 0.8;                         /* Ligera transparencia */
+  }
+  
+  .prompt-area:focus {
+    outline: none; /* Quita el contorno por defecto del navegador */
+    border-color: var(--border-color-focus); /* Cambia color de borde al enfocar */
+    /* Añade una sombra sutil al enfocar */
+    box-shadow: 0 0 0 3px rgba(var(--primary-color), 0.15); /* Ajusta el color y opacidad según necesites */
+  }
+  
+  /* ==========================================
+     5. Botones (Generales y Específicos)
+     ========================================== */
+  
+  /* Contenedores para grupos de botones */
+  .button-group,
+  .result-actions {
+    display: flex; /* Usa Flexbox para alinear botones */
+    gap: calc(var(--spacing-unit) * 1.5); /* Espacio entre botones */
+    flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea si no caben */
+  }
+  
+  /* Estilo base para TODOS los botones */
+  button {
+    display: inline-flex; /* Permite alinear icono y texto fácilmente */
+    align-items: center;    /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    gap: calc(var(--spacing-unit) * 0.75); /* Espacio entre icono y texto */
+    padding: var(--button-padding-y) var(--button-padding-x); /* Padding base (puede ser sobrescrito) */
+    border: none; /* Sin borde por defecto */
+    border-radius: var(--border-radius-standard); /* Bordes redondeados */
+    font-family: inherit; /* Hereda fuente del body */
+    font-size: inherit;   /* Hereda tamaño de fuente base (puede ser sobrescrito) */
+    font-weight: 500;     /* Peso de fuente medio */
+    color: var(--text-color-white); /* Color de texto (generalmente blanco o negro, ver tema oscuro) */
+    line-height: 1.2;     /* Altura de línea ajustada para botones */
+    text-align: center;   /* Alineación de texto */
+    cursor: pointer;      /* Cursor de mano */
+    /* Transiciones suaves para efectos visuales */
+    transition: background-color var(--transition-speed) ease,
+                opacity var(--transition-speed) ease,
+                transform var(--transition-speed) ease,
+                box-shadow var(--transition-speed) ease;
+  }
+  
+  /* Efectos Hover y Active (solo si no está deshabilitado) */
+  button:not(:disabled):hover {
+    transform: translateY(-1px); /* Ligero desplazamiento hacia arriba */
+    box-shadow: var(--shadow-button-hover); /* Añade sombra */
+  }
+  
+  button:not(:disabled):active {
+    transform: translateY(0px); /* Vuelve a la posición original al hacer clic */
+    box-shadow: none; /* Quita la sombra al hacer clic */
+  }
+  
+  /* Iconos SVG dentro de botones */
+  button svg {
+    width: 1em; /* Tamaño relativo al font-size del botón */
+    height: 1em;
+    vertical-align: middle; /* Alineación vertical (aunque flexbox ya ayuda) */
+    fill: currentColor; /* El color del icono será el mismo que el color de texto del botón */
+  }
+  
+  /* --- Botones Principales (Enviar, Limpiar) --- */
+  /* Ya heredan el padding y font-size base de 'button' */
+  
+  #executeBtn { background-color: var(--primary-color); }
+  #executeBtn:not(:disabled):hover { background-color: var(--primary-color-darker); }
+  
+  #clearBtn { background-color: var(--danger-color); }
+  #clearBtn:not(:disabled):hover { background-color: var(--danger-color-darker); }
+  
+  /* Estilo para botones principales deshabilitados */
+  .button-group button:disabled {
+    background-color: var(--disabled-color); /* Color de fondo gris */
+    cursor: not-allowed; /* Cursor de no permitido */
+    opacity: var(--disabled-opacity); /* Opacidad reducida */
+    transform: none; /* Sin efecto de desplazamiento */
+    box-shadow: none; /* Sin sombra */
+  }
+  
+  /* --- Botones de Acción (Copiar, Guardar) --- */
+  .result-actions button {
+    /* Padding más pequeño para botones de acción */
+    padding: var(--button-action-padding-y) var(--button-action-padding-x);
+    /* Tamaño de fuente ligeramente más pequeño que el base */
+    font-size: calc(var(--base-font-size) - 2px); /* ~15px */
+  }
+  
+  /* OPTIMIZACIÓN: Se eliminó font-size: 20px de #copyBtn y #saveBtn.
+     Ahora heredan el tamaño de .result-actions button (15px base)
+     y se ajustan correctamente en media queries. */
+  #copyBtn { background-color: var(--info-color); }
+  #copyBtn:not(:disabled):hover { background-color: var(--info-color-darker); }
+  
+  #saveBtn { background-color: var(--success-color); }
+  #saveBtn:not(:disabled):hover { background-color: var(--success-color-darker); }
+  
+  /* Estilo para botones de acción deshabilitados */
+  .result-actions button:disabled {
+    background-color: var(--secondary-color); /* Gris secundario */
+    cursor: not-allowed;
+    opacity: var(--disabled-opacity);
+    transform: none;
+    box-shadow: none;
+  }
+  
+  
+  /* ==========================================
+     6. Sección de Resultados
+     ========================================== */
+  .result-container {
+    margin-top: calc(var(--spacing-unit) * 4); /* Espacio encima de la sección de resultados */
+  }
+  
+  .result-header {
+    display: flex;                  /* Usa Flexbox */
+    justify-content: space-between; /* Separa título y botones */
+    align-items: center;            /* Centra verticalmente */
+    margin-bottom: var(--spacing-unit); /* Espacio debajo del encabezado */
+    flex-wrap: wrap;                /* Permite envolver si no cabe */
+    gap: var(--spacing-unit);       /* Espacio entre elementos si envuelve */
+  }
+  
+  .result-header h3 {
+    /* margin: 0; ya aplicado en reset */
+    color: var(--text-color-medium); /* Color de subtítulo (depende del tema) */
+    flex-grow: 1;                   /* Permite que ocupe el espacio sobrante */
+    font-size: calc(var(--base-font-size) + 2px); /* Ligeramente más grande que el base (~19px) */
+    font-weight: 600;               /* Semi-bold */
+    transition: color var(--transition-speed) ease; /* Transición suave */
+  }
+  
+  .result-box {
+    padding: calc(var(--spacing-unit) * 2); /* Espaciado interno */
+    border: 1px solid var(--border-color-light); /* Borde claro (depende del tema) */
+    border-radius: var(--border-radius-standard); /* Bordes redondeados */
+    background-color: var(--background-color-result); /* Fondo (depende del tema) */
+    min-height: 150px;                  /* Altura mínima */
+    font-family: var(--font-family-mono); /* Fuente monoespaciada para legibilidad */
+    font-size: var(--base-font-size);    /* Mismo tamaño que el texto base (~17px) */
+    color: var(--text-color-normal);     /* Color de texto (depende del tema) */
+    white-space: pre-wrap;     /* Conserva espacios/saltos y permite envolver líneas */
+    word-wrap: break-word;     /* Fuerza el corte de palabras largas */
+    overflow-x: auto;          /* Añade scroll horizontal si el contenido (ej. código) es muy ancho */
+    /* Transiciones suaves */
+    transition: background-color var(--transition-speed) ease,
+                color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+  }
+  
+  /* --- Espaciado y Estilos dentro de .result-box --- */
+  /* Controla el espacio vertical entre párrafos, listas, bloques de código, etc. */
+  .result-box p,
+  .result-box ul, /* Añadido ul/ol para consistencia */
+  .result-box ol,
+  .result-box li,
+  .result-box blockquote,
+  .result-box pre {
+    line-height: var(--line-height-normal); /* Altura de línea estándar */
+    margin-top: 0.5em;    /* Espacio vertical entre elementos (ajustar si es necesario) */
+    margin-bottom: 0.5em;
+  }
+  
+  /* Elimina margen extra al inicio y final del contenedor */
+  .result-box > *:first-child { margin-top: 0; }
+  .result-box > *:last-child { margin-bottom: 0; }
+  
+  /* Estilos para elementos específicos */
+  .result-box strong {
+    color: var(--text-color-dark); /* Texto en negrita más oscuro */
+    font-weight: 600;
+    transition: color var(--transition-speed) ease;
+  }
+  
+  .result-box a {
+    color: var(--primary-color); /* Enlaces con color primario */
+    text-decoration: none; /* Sin subrayado por defecto */
+    transition: color var(--transition-speed) ease;
+  }
+  .result-box a:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+    color: var(--primary-color-darker); /* Color más oscuro */
+  }
+  
+  /* Código inline (ej: `variable`) */
+  .result-box code:not([class*="language-"]) {
+    background-color: rgba(127, 140, 141, 0.15); /* Fondo sutil grisáceo */
+    padding: 0.2em 0.4em;     /* Padding pequeño */
+    border-radius: 3px;       /* Bordes ligeramente redondeados */
+    font-size: 90%;           /* Un poco más pequeño que el texto circundante */
+    vertical-align: baseline; /* Mejor alineación con el texto */
+  }
+  [data-theme="dark"] .result-box code:not([class*="language-"]) {
+    background-color: rgba(44, 62, 80, 0.5); /* Fondo más oscuro en tema dark */
+  }
+  
+  /* Bloques de código resaltados por PrismJS (<pre><code class="language-...">) */
+  .result-box pre[class*="language-"] {
+    /* margin-top/bottom heredado de la regla general de arriba */
+    padding: 1em;           /* Espaciado interno generoso */
+    overflow: auto;         /* Scroll si el código es muy ancho/largo */
+    border-radius: var(--border-radius-standard); /* Bordes redondeados */
+    background: var(--background-color-code); /* Fondo (depende del tema) */
+    border: 1px solid var(--border-color-light); /* Borde sutil (depende del tema) */
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  }
+  
+  /* Texto dentro de los bloques de código */
+  .result-box pre[class*="language-"] code {
+    display: block; /* Asegura que ocupe el contenedor <pre> */
+    font-family: var(--font-family-mono); /* Fuente monoespaciada */
+    font-size: 0.95em;      /* Ligeramente más pequeño que el texto de resultados */
+    line-height: 1.5;       /* Altura de línea específica para código */
+    color: var(--text-color-normal); /* Color base (depende del tema) */
+    background: none;       /* Sin fondo propio (usa el de <pre>) */
+    text-shadow: none;      /* Sin sombra de texto */
+    white-space: pre;       /* Mantiene espacios y saltos de línea */
+    /* Resetea estilos de código inline por si acaso */
+    padding: 0;
+    border-radius: 0;
+  }
+  
+  /* Ajustes de color específicos para Prism en tema oscuro (si el tema por defecto no contrasta bien) */
+  [data-theme="dark"] .token.comment,
+  [data-theme="dark"] .token.prolog,
+  [data-theme="dark"] .token.doctype,
+  [data-theme="dark"] .token.cdata {
+      color: #999; /* Comentarios en gris */
+  }
+  [data-theme="dark"] .token.punctuation {
+      color: #ccc; /* Puntuación en gris claro */
+  }
+  /* ... (añadir más overrides de tokens si es necesario) ... */
+  
+  /* Mensaje de error dentro de .result-box */
+  .error-message {
+    color: var(--text-color-error); /* Usa el color de error definido */
+    font-weight: bold;             /* Texto en negrita */
+  }
+  
+  
+  /* ==========================================
+     7. Indicador de Carga (Spinner)
+     ========================================== */
+  .loading {
+    position: fixed; /* Fijo en la pantalla */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: var(--background-color-overlay); /* Fondo semitransparente */
+    display: none; /* Oculto por defecto (se muestra con JS) */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
+    z-index: 1000;           /* Por encima de otros elementos */
+    flex-direction: column;  /* Apila spinner y texto */
+    gap: var(--spacing-unit); /* Espacio entre spinner y texto */
+    color: var(--text-color-normal); /* Color del texto "Cargando..." */
+    font-size: 1.1em;
+    /* Transiciones suaves para el fondo y color al cambiar tema mientras está visible */
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  }
+  
+  .spinner {
+    width: 40px; height: 40px;
+    border: 4px solid rgba(127, 140, 141, 0.3); /* Borde grisáceo semi-transparente */
+    border-top-color: var(--primary-color); /* Color primario para la parte giratoria */
+    border-radius: 50%; /* Círculo perfecto */
+    animation: spin 1s linear infinite; /* Animación de rotación */
+    transition: border-top-color var(--transition-speed) ease; /* Transición suave de color */
+  }
+  
+  /* Animación del spinner */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  
+  /* ==========================================
+     8. Botón de Cambio de Tema
+     ========================================== */
+  .theme-toggle-container {
+    position: absolute; /* Posicionamiento absoluto respecto al body o contenedor relativo más cercano */
+    top: calc(var(--spacing-unit) * 1.5); /* Espacio desde arriba */
+    right: calc(var(--spacing-unit) * 1.5); /* Espacio desde la derecha */
+    z-index: 10; /* Asegura que esté sobre el contenido general */
+  }
+  
+  #themeToggle {
+    background-color: var(--background-color-button-toggle); /* Fondo (depende del tema) */
+    color: var(--text-color-normal); /* Color del icono (depende del tema) */
+    border: 1px solid var(--border-color-medium); /* Borde sutil (depende del tema) */
+    border-radius: 50%; /* Botón circular */
+    width: 40px; height: 40px; /* Tamaño fijo */
+    font-size: 1.5em; /* Tamaño del icono (emoji) */
+    padding: 0; /* Sin padding interno extra */
+    display: flex; /* Para centrar el icono */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra sutil */
+    /* Transiciones suaves para cambios de tema y hover */
+    transition: background-color var(--transition-speed) ease,
+                color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease,
+                transform var(--transition-speed) ease;
+  }
+  
+  #themeToggle:hover {
+    background-color: var(--background-color-button-toggle-hover); /* Cambio de fondo en hover */
+    transform: scale(1.1); /* Ligero aumento de tamaño en hover */
+  }
+  
+  
+  /* ==========================================
+     9. Media Queries para Responsividad
+     ========================================== */
+  
+  /* --- Estilos para Tablets y pantallas medianas (<= 768px) --- */
+  @media (max-width: 768px) {
+    body {
+      padding: var(--spacing-unit); /* Reduce el padding general */
+      /* Opcional: Reducir tamaño base en móvil si 17px es muy grande */
+      /* --base-font-size: 16px; */
+    }
+  
+    .container {
+      padding: calc(var(--spacing-unit) * 2); /* Reduce padding del contenedor */
+      margin: var(--spacing-unit) auto; /* Reduce margen vertical */
+    }
+  
+    h1 {
+      font-size: 1.6em; /* Tamaño de fuente relativo al base */
+      margin-bottom: calc(var(--spacing-unit) * 3); /* Reduce espacio inferior */
+    }
+  
+    /* No es necesario ajustar .prompt-area min-height aquí a menos que sea un problema */
+  
+    /* Botones principales se apilan */
+    .button-group {
+      flex-direction: column; /* Apila los botones */
+      align-items: stretch;   /* Estira los botones al ancho completo */
+      gap: var(--spacing-unit); /* Espacio entre botones apilados */
+    }
+    /* No es necesario .button-group button { width: 100%; } porque align-items: stretch lo hace */
+  
+    /* Encabezado de resultados se apila */
+    .result-header {
+      flex-direction: column;     /* Apila título y botones de acción */
+      align-items: flex-start;  /* Alinea elementos a la izquierda */
+    }
+  
+    /* Botones de acción ocupan el ancho y se alinean */
+    .result-actions {
+      width: 100%; /* Ocupa todo el ancho disponible */
+      justify-content: flex-start; /* Alinea botones al inicio */
+      gap: var(--spacing-unit); /* Espacio entre botones */
+    }
+    .result-actions button {
+      flex-grow: 1; /* Permite que los botones crezcan para llenar el espacio */
+      text-align: center; /* Centra el texto (aunque ya lo hace justify-content en button base) */
+    }
+  
+    /* Reduce tamaño de fuente en la caja de resultados */
+    .result-box {
+      font-size: calc(var(--base-font-size) - 1px); /* ~16px */
+    }
+  
+    /* Acerca el botón de tema a la esquina */
+    .theme-toggle-container {
+      top: var(--spacing-unit);
+      right: var(--spacing-unit);
+    }
+    /* Hace el botón de tema ligeramente más pequeño */
+    #themeToggle {
+      width: 36px;
+      height: 36px;
+      font-size: 1.3em;
+    }
+  }
+  
+  /* --- Estilos para Móviles pequeños (<= 480px) --- */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.4em; /* Reduce más el tamaño del título */
+    }
+  
+    /* Reduce el padding y tamaño de fuente de los botones */
+    .button-group button,
+    .result-actions button {
+      padding: calc(var(--button-padding-y) * 0.8) calc(var(--button-padding-x) * 0.8); /* Reduce padding */
+      font-size: calc(var(--base-font-size) - 1px); /* Reduce tamaño fuente (~16px) */
+    }
+    /* Reduce aún más el tamaño de los botones de acción */
+    .result-actions button {
+      font-size: calc(var(--base-font-size) - 3px); /* Reduce más (~14px) */
+    }
+  
+    /* Reduce más el tamaño de fuente en la caja de resultados */
+    .result-box {
+      font-size: calc(var(--base-font-size) - 2px); /* Reduce más (~15px) */
+    }
+  }
+  
+  
