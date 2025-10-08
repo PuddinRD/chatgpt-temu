@@ -1,17 +1,11 @@
 {
   "name": "chatgpt-temu",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
     "openai": "^4.104.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "engines": {
+    "node": ">=18"
+  }
 }
